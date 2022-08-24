@@ -9,7 +9,11 @@ export const CardContainer = styled.main`
   padding: 20px 25px;
 
   h2 { 
-    text-align: center;
     margin-bottom: 10px;
   }
+
+  h2, h4 {
+    text-align: center;
+  }
+ 
 `
