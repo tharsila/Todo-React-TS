@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { ITask } from './interfaces/Task';
+import Modal from './components/Modal';
 
 function App() {
   const[taskList, setTaskList] = useState<ITask[]>([])
@@ -17,8 +18,22 @@ function App() {
     )
   }
 
+  const hideOrShowModal = (display:boolean) => {
+    const modal = document.getElementById('modal')
+    if (display) {
+      modal!.classList.remove('hide')
+    } else {
+      modal!.classList.add('hide')
+    }
+  }
+
+  const editTask = ():void => {
+    hideOrShowModal(true)
+  }
+
   return (
     <>
+      <Modal children={<TaskForm btnText='Editar' taskList={taskList}/>}/>
       <Header/>
       <C.CardContainer>
         <div>
@@ -27,7 +42,7 @@ function App() {
         </div>
         <div>
           <h2>Lista de tarefas:</h2>
-          <TaskList taskList={taskList} handleDelete={deleteTask}/>
+          <TaskList taskList={taskList} handleDelete={deleteTask} editTask={editTask}/>
         </div>
       </C.CardContainer>
       <Footer/>

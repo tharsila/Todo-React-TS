@@ -6,9 +6,10 @@ import * as C from './styles'
 interface Props {
   taskList: ITask[]
   handleDelete(id:number):void
+  editTask():void
 }
 
-const TaskList = ({taskList, handleDelete}: Props) => {
+const TaskList = ({taskList, handleDelete, editTask}: Props) => {
   return (
     <>
      {taskList.length > 0 ? (
@@ -19,7 +20,7 @@ const TaskList = ({taskList, handleDelete}: Props) => {
               <p>Duração: {task.duration} hora(s)</p>
             </C.TaskInfo>
             <C.TaskAction>
-              <span>
+              <span onClick={editTask}>
                 <BsPencil/>
               </span>
               <span onClick={() => handleDelete(task.id)}>
