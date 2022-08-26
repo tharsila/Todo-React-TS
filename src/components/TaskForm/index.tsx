@@ -50,7 +50,7 @@ const TaskForm = ({btnText, taskList, setTaskList}: Props) => {
       <label>
         <span>Duração:</span>
         <input 
-          type="text" 
+          type="number" 
           placeholder='Tempo estimado (em horas)'
           value={duration}
           onChange={((e) => setDuration(e.target.value))}
