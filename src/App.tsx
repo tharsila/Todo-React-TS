@@ -9,6 +9,7 @@ import Modal from './components/Modal';
 
 function App() {
   const[taskList, setTaskList] = useState<ITask[]>([])
+  const [taskUpdate, setTaskUpdate] = useState<ITask | null>(null)
 
   const deleteTask = (id:number) => {
     setTaskList(
@@ -16,6 +17,22 @@ function App() {
         return task.id !== id
       })
     )
+  }
+
+  const editTask = (task: ITask):void => {
+    hideOrShowModal(true)
+    setTaskUpdate(task)
+  }
+
+  const handleTaskUpdate = (id:number, title:string, duration:string):void => {
+    const updatedItems: ITask = {id, title, duration}
+
+    const updatedTasks = taskList.map((task) => {
+      return task.id === updatedItems.id ? updatedItems : task
+    })
+
+    setTaskList(updatedTasks)
+    hideOrShowModal(false)
   }
 
   const hideOrShowModal = (display:boolean) => {
@@ -27,13 +44,17 @@ function App() {
     }
   }
 
-  const editTask = ():void => {
-    hideOrShowModal(true)
-  }
 
   return (
     <>
-      <Modal children={<TaskForm btnText='Editar' taskList={taskList}/>}/>
+      <Modal children={
+        <TaskForm 
+          btnText='Editar' 
+          taskList={taskList} 
+          taskUpdate={taskUpdate}
+          handleTaskUpdate={handleTaskUpdate}
+        />
+      }/>
       <Header/>
       <C.CardContainer>
         <div>
